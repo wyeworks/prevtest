@@ -1,6 +1,6 @@
 # prevtest
 
-Test caching solution for nextest.
+prevtest (previous test) is a test caching solution for nextest.
 
 ## Status
 
