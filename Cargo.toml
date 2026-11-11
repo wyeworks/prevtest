@@ -1,0 +1,15 @@
+[package]
+name = "prevtest"
+version = "0.1.0"
+edition = "2024"
+description = "Test caching solution for nextest"
+publish = false
+
+[dependencies]
+anyhow = "1"
+blake3 = "1.8"
+clap = { version = "4.6", features = ["derive", "env"] }
+rusqlite = { version = "0.41", default-features = false, features = ["bundled"] }
+
+[dev-dependencies]
+tempfile = "3"
