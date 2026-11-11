@@ -1,6 +1,14 @@
 # prevtest
 
-Work in progress test caching solution for nextest.
+Test caching solution for nextest.
+
+## Status
+
+Work in progress.
+
+The main proposal is described in the [high-level design document](docs/high-level-design.md).
+
+The repo currently contains an early implementation of the first increment, still missing the file hashing shortcut, signal handling, integration tests, CI, etc.
 
 ## Installation
 
