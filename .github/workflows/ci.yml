@@ -53,26 +53,31 @@ jobs:
       - run: cargo nextest run --locked --all-targets --profile ci
 
   prevtest:
-    name: Tests with prevtest (${{ matrix.os }})
+    name: Tests with prevtest (${{ matrix.os }}, ${{ matrix.nextest }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
+        nextest: [stable, wrapper-report]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2.9.3
       - uses: taiki-e/install-action@v2.90.3
+        if: matrix.nextest == 'stable'
         with:
           tool: cargo-nextest@0.9.151
+      - name: Install nextest with wrapper reporting
+        if: matrix.nextest == 'wrapper-report'
+        run: cargo install --git https://github.com/noxware/nextest --branch wrapper-report --locked cargo-nextest
       - name: Install prevtest
         run: cargo install --path . --locked
       - name: Cache test results
         uses: actions/cache@v6.1.0
         with:
           path: .prevtest/cache
-          key: prevtest-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: prevtest-${{ runner.os }}-${{ runner.arch }}-
+          key: prevtest-${{ matrix.nextest }}-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: prevtest-${{ matrix.nextest }}-${{ runner.os }}-${{ runner.arch }}-
       - run: cargo nextest run --locked --all-targets --profile prevtest
