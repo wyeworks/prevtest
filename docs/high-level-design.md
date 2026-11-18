@@ -34,7 +34,7 @@ Initially, only successful test results would be cached.
 
 > More details: [Binary identity](design-notes.md#binary-identity).
 
-> [!IMPORTANT]
+> [!WARNING]
 > Known limitation:
 >
 > A binary contains many tests, so changes to crate code invalidate all cached
