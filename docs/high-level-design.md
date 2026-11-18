@@ -51,10 +51,16 @@ subsets of tests can maintain separate caches.
 Initially, tests would run in a temporary working directory containing symlinks
 to the binary and required runtime files, with space for temporary files.
 This helps identify dependencies on files in the original working directory
-without requiring input declarations. Absolute paths would remain accessible.
+without requiring input declarations.
 
-If stronger restrictions are needed, we could add `bwrap` on Linux and
-`sandbox-exec` on macOS.
+> [!NOTE]
+> Known limitation:
+>
+> This detects files read through relative paths or through a workspace path
+> found from the working directory at runtime, but not through absolute paths
+> compiled in with `env!("CARGO_MANIFEST_DIR")`.
+>
+> Detecting those would require `bwrap` on Linux and `sandbox-exec` on macOS.
 
 Since nextest starts a process per test, setting up and tearing down an environment
 with each test's own dependencies could be costly for short tests. Prevtest could
