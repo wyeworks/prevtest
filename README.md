@@ -8,7 +8,7 @@ Work in progress.
 
 The main proposal is described in the [high-level design document](docs/high-level-design.md).
 
-The repo currently contains an early implementation of the first increment, still missing signal handling, etc.
+The repo currently contains an early implementation of the first increment.
 
 ## Installation
 
