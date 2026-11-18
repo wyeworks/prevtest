@@ -40,11 +40,13 @@ Then run:
 cargo nextest run
 ```
 
-Set `PREVTEST_FORCE=1` to force test execution while still updating the cache.
+## Options
 
-Test results go in `.prevtest/cache` and machine-local state in `.prevtest/state`.
-`PREVTEST_CACHE_DIR` and `PREVTEST_STATE_DIR` change them, resolving relative paths
-from the workspace root. **Only the cache directory is meant to be saved and restored in CI.**
+| Environment variable | Default | Description |
+| --- | --- | --- |
+| `PREVTEST_FORCE` | `false` | Run tests even when cached, still updating the cache. Same as `--force`. |
+| `PREVTEST_CACHE_DIR` | `.prevtest/cache` | Test results. |
+| `PREVTEST_STATE_DIR` | `.prevtest/state` | Machine-local state. |
 
-Binary hashes are reused only when the binary is on the same filesystem as the state
-directory. Otherwise prevtest hashes it on every run.
+- Relative directories resolve from the workspace root.
+- **Only the cache directory is meant to be saved and restored in CI.** The state directory holds information that only applies to the machine that wrote it.
